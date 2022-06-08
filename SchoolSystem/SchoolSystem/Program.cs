@@ -1,16 +1,17 @@
-﻿using System;
+﻿using SchoolSystem.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScholManagementSystem
+namespace SchoolSystem
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            MainMenu(SchoolInformation());
+            MainMenu(GetSchool());
         }
 
 
@@ -27,7 +28,7 @@ namespace ScholManagementSystem
                     switch (choice)
                     {
                         case 0:
-                            Console.WriteLine("Application closed");
+                            Message.CloseSystem();
                             flag = false;
                             break;
                         case 1:
@@ -40,13 +41,13 @@ namespace ScholManagementSystem
                             school.Principal.AdminLoginCheckInformation();
                             break;
                         default:
-                            Console.WriteLine("Not a valid option");
+                            Message.Error("Not a valid option");
                             break;
                     }
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Invalid Input");
+                    Message.Error("Invalid Input");
                 }
             }
         }
@@ -63,10 +64,10 @@ namespace ScholManagementSystem
             Console.WriteLine(menu);
         }
 
-        public static School SchoolInformation()
+        public static School GetSchool()
         {
             Database db = new();
-            return db.SchoolInformation1();
+            return db.GetSchool();
         }
     }
 }

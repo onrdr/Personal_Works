@@ -4,17 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScholManagementSystem
+namespace SchoolSystem
 {
     internal interface IListedObjects<T>
     {
-        string GetName();
-
-        string GetLastName();
-
-        void PrintInfoForAdmin();
-
-        T FindandReturn(string name, string lastName); 
+        public string GetName(); 
+        public string GetLastName();
+        void PrintInfoForAdmin(); 
     }
 }
 

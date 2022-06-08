@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SchoolSystem.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScholManagementSystem
+namespace SchoolSystem
 {
     internal class Teacher : IListedObjects<Teacher>
     {
@@ -13,17 +14,17 @@ namespace ScholManagementSystem
         private readonly Course course;
         private string password;
         private static School school;
-        private readonly Dictionary<Student, List<double>> examGradesMap = new ();
-         
+        private readonly Dictionary<Student, List<double>> examGradesMap = new();
+
         public Teacher(string name, string lastName, string password, Course course, School school)
         {
             this.name = name;
             this.lastName = lastName;
-            this.course = course; 
+            this.course = course;
             this.password = password;
             Teacher.school = school;
             course.Teacher = this;
-            School.teacherList.Add(this);
+            school.teacherList.Add(this);
         }
 
         public static void TeacherLoginCheckInformation()
@@ -31,23 +32,24 @@ namespace ScholManagementSystem
             Console.WriteLine("=============== TEACHER LOGIN ===============");
             Console.Write("Please enter your name : ");
             string name = Console.ReadLine();
-            Console.Write("Please enter your last name : ");
-            string lastName = Console.ReadLine();
+            Console.Write("Please enter your last name : "); 
+            string lastName = Console.ReadLine(); 
             Console.Write("Please enter your password : ");
             string password = Console.ReadLine();
-            Teacher teacher = school.FindTeacher(name, lastName);
+
+            Teacher teacher = (Teacher)school.FindandReturn(name, lastName, school.teacherList); 
 
             if (teacher == null)
             {
-                Console.WriteLine("Teacher not found.");
+                Message.Error("Teacher not found.");
             }
             else if (!teacher.password.Equals(password))
             {
-                Console.WriteLine("Wrong Password");
+                Message.Error("Wrong Password");
             }
             else
             {
-                Console.Write("Login successful... WELCOME {0} \n", teacher.GetFullName());
+                Message.Success($"Login successful... WELCOME {teacher.GetFullName()} \n");
                 TeacherLoginMenu(teacher);
             }
         }
@@ -60,12 +62,12 @@ namespace ScholManagementSystem
             {
                 try
                 {
-                    teacher.MenuScreen();
+                    MenuScreen();
                     choice = Convert.ToInt32(Console.ReadLine());
                     switch (choice)
                     {
                         case 0:
-                            Console.WriteLine("Application closed");
+                            Message.CloseSystem();
                             Environment.Exit(0);
                             break;
                         case 1:
@@ -84,19 +86,17 @@ namespace ScholManagementSystem
                             teacher.ChangePassword();
                             break;
                         case 6:
-                            Console.WriteLine("Logged out successfully ");
+                            Message.Success("Logged out successfully ");
                             flag = false;
                             break;
                         default:
-                            Console.WriteLine("Not a valid option");
+                            Message.Error("Not a valid option");
                             break;
                     }
                 }
                 catch (Exception)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid Input!!!");
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                { 
+                    Message.Error("Invalid Input!!!"); 
                 }
             }
         }
@@ -105,16 +105,16 @@ namespace ScholManagementSystem
         {
             Student student = FindStudent();
             if (student == null)
-            {
-                Console.WriteLine("Student not found");
+            {  
+                Message.Error("Student not Found"); 
             }
             else if (!course.StudentList.Contains(student))
             {
-                Console.WriteLine("Student not in your class");
+                Message.Error("Student not in your class");
             }
             else if (!(examGradesMap[student].Count == 0))
             {
-                Console.WriteLine("You have entered exam results before. \nPlease modify results from menu");
+                Message.Error("You have entered exam results before. \nPlease modify results from menu");
             }
             else
             {
@@ -123,7 +123,7 @@ namespace ScholManagementSystem
                 student.ExamGrades.Add(course, examGrades);
                 examGradesMap.Remove(student);
                 examGradesMap.Add(student, examGrades);
-                Console.WriteLine("Added successfully...");
+                Message.Success("Added successfully...");
             }
         }
 
@@ -140,22 +140,22 @@ namespace ScholManagementSystem
             }
             if (flag)
             {
-                Console.WriteLine("No exam result had been entered before");
+                Message.Error("No exam result had been entered before");
             }
             else
             {
                 Student student = FindStudent();
                 if (student == null)
                 {
-                    Console.WriteLine("Student not found");
+                    Message.Error("Student not found");
                 }
                 else if (!course.StudentList.Contains(student))
                 {
-                    Console.WriteLine("Student not in your class");
+                    Message.Error("Student not in your class");
                 }
                 else if (examGradesMap[student].Count == 0)
                 {
-                    Console.WriteLine("You have not entered exam results for this student.");
+                    Message.Error("You have not entered exam results for this student.");
                 }
                 else
                 {
@@ -165,12 +165,12 @@ namespace ScholManagementSystem
                     student.ExamGrades.Add(course, examGrades);
                     examGradesMap.Remove(student);
                     examGradesMap.Add(student, examGrades);
-                    Console.WriteLine("Modified successfully...");
+                    Message.Success("Modified successfully...");
                 }
             }
         }
 
-        public List<double> EnterExamGradesAndTakeExamListBack()
+        public static List<double> EnterExamGradesAndTakeExamListBack()
         {
             List<double> examGrades = new List<double>();
             while (true)
@@ -187,7 +187,7 @@ namespace ScholManagementSystem
 
                     if (mid1 < 0 || mid1 > 100 || mid2 < 0 || mid2 > 100 || finalExam < 0 || finalExam > 100)
                     {
-                        Console.WriteLine("One of the exam grade is out of range (0 - 100)");
+                        Message.Error("One of the exam grade is out of range (0 - 100)");
                     }
                     else
                     {
@@ -199,7 +199,7 @@ namespace ScholManagementSystem
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Invalid Input");
+                    Message.Error("Invalid Input!!!"); 
                 }
             }
             return examGrades;
@@ -218,25 +218,25 @@ namespace ScholManagementSystem
             }
             if (flag)
             {
-                Console.WriteLine("No exam result had been entered before\n");
+                Message.Error("No exam result had been entered before\n");
             }
             else
             {
                 List<double> doubleList;
                 foreach (Student student in examGradesMap.Keys)
                 {
-                    Console.Write("{0} {1} : ", student.StudentNumber, student.GetFullName());
+                    Console.Write($"{student.StudentNumber} {student.GetFullName()} : ");
 
                     if (examGradesMap[student].Count == 0)
                     {
-                        Console.Write("No exam result had been entered before\n\n");
+                        Message.Error("No exam result had been entered before\n\n");
                     }
                     else
                     {
                         doubleList = examGradesMap[student];
-                        Console.Write("Mid1: " + doubleList[0]);
-                        Console.Write(", Mid2: " + doubleList[1]);
-                        Console.Write(", Final: " + doubleList[2] + "\n\n");
+                        Console.Write($"Mid1: {doubleList[0]}");
+                        Console.Write($", Mid2: {doubleList[1]}");
+                        Console.Write($", Final: {doubleList[2]}\n\n");
                     }
                 }
             }
@@ -244,7 +244,7 @@ namespace ScholManagementSystem
 
         public void PrintInfoForAdmin()
         {
-            Console.WriteLine("{0} : ", GetFullName());
+            Console.WriteLine($"{GetFullName()} : ");
             PrintExamResults();
         }
 
@@ -252,15 +252,14 @@ namespace ScholManagementSystem
         {
             if (course.StudentList.Count == 0)
             {
-                Console.WriteLine("No student registered to your course!!!");
+                Message.Error("No student registered to your course!!!");
             }
             else
             {
                 Console.WriteLine("Students List : ");
                 foreach (Student student in course.StudentList)
                 {
-                    Console.Write(student.StudentNumber + " " + student.GetFullName() + "\n");
-
+                    Console.Write($"{student.StudentNumber} {student.GetFullName()}\n"); 
                 }
             }
         }
@@ -273,25 +272,25 @@ namespace ScholManagementSystem
             {
                 Console.Write("Please enter new password : ");
                 this.password = Console.ReadLine();
-                Console.WriteLine("Password changed successfully");
+                Message.Success("Password changed successfully");
             }
             else
             {
-                Console.WriteLine("Wrong Password");
+                Message.Error("Wrong Password");
             }
         }
 
-        public Student FindStudent()
+        public static Student FindStudent()
         {
             Console.Write("Please enter student name : ");
-            String studentName = Console.ReadLine();
+            string studentName = Console.ReadLine();
             Console.Write("Please enter student last name : ");
-            String studentLastName = Console.ReadLine();
+            string studentLastName = Console.ReadLine();
 
-            return School.FindStudent(studentName, studentLastName);
+            return (Student)school.FindandReturn(studentName, studentLastName, school.studentList);
         }
 
-        public void MenuScreen()
+        public static void MenuScreen()
         {
             String menu = "=====================================" +
                     "\nMenu : Choose an option" +
@@ -307,19 +306,6 @@ namespace ScholManagementSystem
         }
 
         public Dictionary<Student, List<double>> ExamGradeMap { get { return examGradesMap; } }
-        public School School { get { return school; } }
-        public Teacher FindandReturn(string name, string lastName)
-        {
-            foreach (Teacher t in School.teacherList)
-            {
-                if (t.GetName().Equals(name, StringComparison.OrdinalIgnoreCase) &&
-                        t.GetLastName().Equals(lastName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return t;
-                }
-            }
-            return null;
-        }
 
         public string GetName()
         {

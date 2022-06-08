@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScholManagementSystem
+namespace SchoolSystem
 {
-    internal class Database
-
+    internal class Database 
     {
-        public School SchoolInformation1()
+        public School GetSchool()
         {
 
-            School school1 = new School("Anatolian High School"); 
+            School school1 = new("Anatolian High School");
 
             new Student("s1", "ss1", "1s", school1);
             new Student("s2", "ss2", "2s", school1);
@@ -32,8 +31,6 @@ namespace ScholManagementSystem
                     new Course("Sci", "101", school1), school1);
 
             return school1;
-        }
-
-
+        } 
     }
 }

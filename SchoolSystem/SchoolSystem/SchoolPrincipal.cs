@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SchoolSystem.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScholManagementSystem
+namespace SchoolSystem
 {
     internal class SchoolPrincipal
     {
@@ -33,15 +34,15 @@ namespace ScholManagementSystem
 
             if (!userNameCheck)
             {
-                Console.WriteLine("Wrong username.");
+                Message.Error("Wrong username.");
             }
             else if (!passwordCheck)
             {
-                Console.WriteLine("Wrong Password");
+                Message.Error("Wrong Password");
             }
             else
             {
-                Console.WriteLine("Login successful... WELCOME");
+                Message.Success("Login successful... WELCOME");
                 AdminLoginMenu();
             }
         }
@@ -58,13 +59,12 @@ namespace ScholManagementSystem
                     switch (choice)
                     {
                         case 0:
-                            Console.WriteLine("Application closed");
+                            Message.CloseSystem();
                             Environment.Exit(0);
                             break;
                         case 1:
                             foreach (var student in School.studentList)
-                            {
-
+                            { 
                                 student.PrintInfoForAdmin();
                             }
                             break;
@@ -81,17 +81,17 @@ namespace ScholManagementSystem
                             }
                             break;
                         case 4:
-                            Console.WriteLine("Logged out successfully ");
+                            Message.Success("Logged out successfully ");
                             flag = false;
                             break;
                         default:
-                            Console.WriteLine("Not a valid option");
+                            Message.Error("Not a valid option");
                             break;
                     }
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Invalid Input");
+                    Message.Error("Invalid Input");
                 }
             }
         }
