@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessNumberWithPositionHints", "GuessNumberWithPositionHints\GuessNumberWithPositionHints.csproj", "{97D11106-6E4B-4F1E-B53B-27F0B7842588}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{97D11106-6E4B-4F1E-B53B-27F0B7842588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D11106-6E4B-4F1E-B53B-27F0B7842588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D11106-6E4B-4F1E-B53B-27F0B7842588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D11106-6E4B-4F1E-B53B-27F0B7842588}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16FEFFC5-9E33-41F0-93CC-EB6CC05C6A64}
+	EndGlobalSection
+EndGlobal
