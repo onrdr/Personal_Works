@@ -8,7 +8,7 @@ namespace SchoolSystem
 {
     internal class Database 
     {
-        public School GetSchool()
+        public static School School1()
         {
 
             School school1 = new("Anatolian High School");

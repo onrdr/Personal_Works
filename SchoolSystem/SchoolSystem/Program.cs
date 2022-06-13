@@ -11,17 +11,15 @@ namespace SchoolSystem
     {
         static void Main(string[] args)
         {
-            MainMenu(GetSchool());
+            MainMenu(Database.School1());
         }
-
-
         public static void MainMenu(School school)
         {
             int choice;
             bool flag = true;
             while (flag)
             {
-                MenuScreen();
+                Menu.MainScreen();
                 try
                 {
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -50,24 +48,6 @@ namespace SchoolSystem
                     Message.Error("Invalid Input");
                 }
             }
-        }
-
-        private static void MenuScreen()
-        {
-            string menu = "=============================================\n" +
-            "Menu : Choose an option\n" +
-            "0 - Close Application\n" +
-            "1 - Student Login Menu\n" +
-            "2 - Teacher Login Menu\n" +
-            "3 - Admin Login Menu\n" +
-            "=============================================";
-            Console.WriteLine(menu);
-        }
-
-        public static School GetSchool()
-        {
-            Database db = new();
-            return db.GetSchool();
         }
     }
 }

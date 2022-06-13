@@ -34,14 +34,12 @@ namespace SchoolSystem
             string password = Console.ReadLine();
             Student student = (Student)school.FindandReturn(name, lastName, school.studentList);
 
-            if (student == null)
-            {
+            if (student == null)            
                 Message.Error("Student not found.\n");
-            }
-            else if (!student.password.Equals(password))
-            {
+            
+            else if (!student.password.Equals(password))            
                 Message.Error("Wrong Password\n");
-            }
+            
             else
             {
                 Message.Success($"WELCOME {student.GetFullName()}. Student Number : {student.studentNumber}\n");
@@ -57,7 +55,7 @@ namespace SchoolSystem
             {
                 try
                 {
-                    MenuScreen();
+                    Menu.StudentScreen();
                     choice = Convert.ToInt32(Console.ReadLine());
                     switch (choice)
                     {
@@ -98,17 +96,15 @@ namespace SchoolSystem
 
         public void PrintExamResults()
         {
-            if (examGrades.Count == 0)
-            {
+            if (examGrades.Count == 0)            
                 Message.Error("No course has been added before\n");
-            }
+            
             foreach (Course course in examGrades.Keys)
             {
                 Console.Write($"{course.GetFullName()} : ");
-                if (examGrades[course].Count == 0)
-                {
+                if (examGrades[course].Count == 0)                
                     Message.Error("No exam result found for this course!!!\n");
-                }
+                
                 else
                 {
                     List<double> doubleList = examGrades[course];
@@ -124,14 +120,12 @@ namespace SchoolSystem
         {
             Course c = FindCourse();
 
-            if (c == null)
-            {
+            if (c == null)            
                 Message.Error("Course doesn't exists");
-            }
-            else if (studentCourseList.Contains(c))
-            {
+            
+            else if (studentCourseList.Contains(c))            
                 Message.Error("Course is already on the list");
-            }
+            
             else
             {
                 studentCourseList.Add(c);
@@ -144,23 +138,19 @@ namespace SchoolSystem
 
         public void RemoveCourse(Student student)
         {
-            if (studentCourseList.Count == 0)
-            {
+            if (studentCourseList.Count == 0)            
                 Message.Error("You don't have any course in your list. Please add a course");
-            }
+            
             else
             {
-
                 Course c = FindCourse();
 
-                if (c == null)
-                {
+                if (c == null)                
                     Message.Error("Course doesn't exists");
-                }
-                else if (!studentCourseList.Contains(c))
-                {
+                
+                else if (!studentCourseList.Contains(c))                
                     Message.Error("Course is not on the list");
-                }
+                
                 else
                 {
                     studentCourseList.Remove(c);
@@ -175,10 +165,9 @@ namespace SchoolSystem
         public void PrintCourseList()
         {
             int counter = 0;
-            if (studentCourseList.Count == 0)
-            {
+            if (studentCourseList.Count == 0)            
                 Message.Error("No Course Found!!!");
-            }
+            
             else
             {
                 Console.WriteLine("Course List : ");
@@ -188,13 +177,7 @@ namespace SchoolSystem
                     Console.WriteLine($"{counter} - {c.GetFullName()}");
                 }
             }
-        }
-
-        public void PrintInfoForAdmin()
-        {
-            Console.WriteLine($"{StudentNumber} - {this.GetFullName()} : ");
-            PrintExamResults();
-        }
+        } 
 
         public void ChangePassword()
         {
@@ -206,10 +189,9 @@ namespace SchoolSystem
                 this.password = Console.ReadLine();
                 Console.WriteLine("Password changed successfully");
             }
-            else
-            {
+            else            
                 Message.Error("Wrong Password");
-            }
+            
         }
 
         static Course FindCourse()
@@ -220,44 +202,27 @@ namespace SchoolSystem
             string code = Console.ReadLine();
             Course c = (Course)school.FindandReturn(name, code, school.courseList);
             return c;
-        }
+        } 
 
-        public static void MenuScreen()
-        {
-            String menu = "=====================================" +
-                    "\nMenu : Choose an option" +
-                    "\n0 - Close Application" +
-                    "\n1 - Add a course to your course list" +
-                    "\n2 - Remove a course from your course list" +
-                    "\n3 - Print your exam results" +
-                    "\n4 - Print your course list" +
-                    "\n5 - Change Password" +
-                    "\n6 - Log Out" +
-                    "\n=====================================";
-            Console.WriteLine(menu);
-        }
-
-        public Dictionary<Course, List<double>> ExamGrades { get { return examGrades; } }
+        public Dictionary<Course, List<double>> ExamGrades  => examGrades;
         public int StudentNumber
         {
-            get { return studentNumber; }
+            get => studentNumber;
             set
             {
                 studentNumber++;
                 studentNumber = value;
             }
         }
-        public string GetName()
+        public string GetName() => name;
+
+        public string GetLastName() => lastName;
+
+        public string GetFullName() => ($"{name} {lastName}"); 
+        public void PrintInfoForAdmin()
         {
-            return name;
-        }
-        public string GetLastName()
-        {
-            return lastName;
-        }
-        public string GetFullName()
-        {
-            return this.name + " " + this.lastName;
+            Console.WriteLine($"{StudentNumber} - {this.GetFullName()} : ");
+            PrintExamResults();
         }
 
     }

@@ -32,13 +32,9 @@ namespace SchoolSystem
             return null;
         }
         
-        public SchoolPrincipal Principal { get { return this.principal; } }
+        public SchoolPrincipal Principal => this.principal; 
 
-        public string Name { get { return this.name; } }
-
-
-
-
+        public string Name => this.name; 
 
     }
 }

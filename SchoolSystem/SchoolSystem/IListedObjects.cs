@@ -8,9 +8,10 @@ namespace SchoolSystem
 {
     internal interface IListedObjects<T>
     {
-        public string GetName(); 
+        public string GetName();
         public string GetLastName();
-        void PrintInfoForAdmin(); 
+        public string GetFullName();
+        void PrintInfoForAdmin();
     }
 }
 

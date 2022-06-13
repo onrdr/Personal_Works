@@ -1,18 +1,18 @@
 ﻿
 Random random = new();
-List<int> randomNumberToArrayList = new(); 
+List<int> randomNumberInArrayList = new(); 
 int randomNumber;
 
-while (randomNumberToArrayList.Count < 5)
+while (randomNumberInArrayList.Count < 5)
 {
     randomNumber = random.Next(10);
-    if (!randomNumberToArrayList.Contains(randomNumber))
-        randomNumberToArrayList.Add(randomNumber);
-    if (randomNumberToArrayList[0] == 0)
-        randomNumberToArrayList.Remove(0);
+    if (!randomNumberInArrayList.Contains(randomNumber))
+        randomNumberInArrayList.Add(randomNumber);
+    if (randomNumberInArrayList[0] == 0)
+        randomNumberInArrayList.Remove(0);
 }
 int generatedNumber = 0;
-foreach (int i in randomNumberToArrayList)
+foreach (int i in randomNumberInArrayList)
 {
     generatedNumber = generatedNumber * 10 + i; 
 }

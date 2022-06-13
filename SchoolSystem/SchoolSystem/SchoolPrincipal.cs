@@ -32,14 +32,12 @@ namespace SchoolSystem
             bool userNameCheck = userName.Equals(this.userName, StringComparison.OrdinalIgnoreCase);
             bool passwordCheck = password.Equals(this.password);
 
-            if (!userNameCheck)
-            {
+            if (!userNameCheck)            
                 Message.Error("Wrong username.");
-            }
-            else if (!passwordCheck)
-            {
+            
+            else if (!passwordCheck)            
                 Message.Error("Wrong Password");
-            }
+            
             else
             {
                 Message.Success("Login successful... WELCOME");
@@ -52,7 +50,7 @@ namespace SchoolSystem
             bool flag = true;
             while (flag)
             {
-                MenuScreen();
+                Menu.PrincipalScreen();
                 try
                 {
                     choice = Convert.ToInt32(Console.ReadLine());
@@ -63,22 +61,13 @@ namespace SchoolSystem
                             Environment.Exit(0);
                             break;
                         case 1:
-                            foreach (var student in School.studentList)
-                            { 
-                                student.PrintInfoForAdmin();
-                            }
+                            School.studentList.ForEach(s => s.PrintInfoForAdmin()); 
                             break;
                         case 2:
-                            foreach (var teacher in School.teacherList)
-                            {
-                                teacher.PrintInfoForAdmin();
-                            }
+                            School.teacherList.ForEach(t => t.PrintInfoForAdmin());
                             break;
                         case 3:
-                            foreach (var course in School.courseList)
-                            {
-                                course.PrintInfoForAdmin();
-                            }
+                            School.courseList.ForEach(c => c.PrintInfoForAdmin());
                             break;
                         case 4:
                             Message.Success("Logged out successfully ");
@@ -95,18 +84,6 @@ namespace SchoolSystem
                 }
             }
         }
-        public void MenuScreen()
-        {
-            Console.WriteLine("=============================================");
-            Console.WriteLine("Menu : Choose an option");
-            Console.WriteLine("0 - Close Application");
-            Console.WriteLine("1 - Print all student information");
-            Console.WriteLine("2 - Print all teacher information");
-            Console.WriteLine("3 - Print all course information");
-            Console.WriteLine("4 - Log Out");
-            Console.WriteLine("=============================================");
-        }
-
-        public School School { get { return school; } }
+        public School School=> school;
     }
 }
