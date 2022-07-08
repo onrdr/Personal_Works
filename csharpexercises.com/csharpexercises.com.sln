@@ -57,7 +57,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0.2.4 Need For Speed Exerci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0.2.5 Roman to Integer", "0.2.5 Roman to Integer\0.2.5 Roman to Integer.csproj", "{ED0F9DED-ACCD-4653-8FFC-E85B4078985D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0.2.6.GuessGame", "GuessGame\0.2.6.GuessGame.csproj", "{E6519107-3F6F-472A-AED9-70871FC53CA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "0.2.6.GuessGame", "GuessGame\0.2.6.GuessGame.csproj", "{E6519107-3F6F-472A-AED9-70871FC53CA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0.2.7 PrimeNumbers_InARange", "0.2.7 PrimeNumbers_InARange\0.2.7 PrimeNumbers_InARange.csproj", "{5FBDAFB2-4E06-4518-80E2-D593F0792224}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +179,10 @@ Global
 		{E6519107-3F6F-472A-AED9-70871FC53CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6519107-3F6F-472A-AED9-70871FC53CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6519107-3F6F-472A-AED9-70871FC53CA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FBDAFB2-4E06-4518-80E2-D593F0792224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FBDAFB2-4E06-4518-80E2-D593F0792224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FBDAFB2-4E06-4518-80E2-D593F0792224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FBDAFB2-4E06-4518-80E2-D593F0792224}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

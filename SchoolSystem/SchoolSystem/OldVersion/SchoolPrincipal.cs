@@ -1,11 +1,5 @@
-﻿using SchoolSystem.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolSystem
+﻿ 
+namespace OldVersion
 {
     internal class SchoolPrincipal
     {
@@ -32,15 +26,15 @@ namespace SchoolSystem
             bool userNameCheck = userName.Equals(this.userName, StringComparison.OrdinalIgnoreCase);
             bool passwordCheck = password.Equals(this.password);
 
-            if (!userNameCheck)            
-                Message.Error("Wrong username.");
-            
-            else if (!passwordCheck)            
-                Message.Error("Wrong Password");
-            
+            if (!userNameCheck)
+                Messages.Error("Wrong username.");
+
+            else if (!passwordCheck)
+                Messages.Error("Wrong Password");
+
             else
             {
-                Message.Success("Login successful... WELCOME");
+                Messages.Success("Login successful... WELCOME");
                 AdminLoginMenu();
             }
         }
@@ -50,18 +44,18 @@ namespace SchoolSystem
             bool flag = true;
             while (flag)
             {
-                Menu.PrincipalScreen();
+                MenuScreens.PrincipalScreen();
                 try
                 {
                     choice = Convert.ToInt32(Console.ReadLine());
                     switch (choice)
                     {
                         case 0:
-                            Message.CloseSystem();
+                            Messages.CloseSystem();
                             Environment.Exit(0);
                             break;
                         case 1:
-                            School.studentList.ForEach(s => s.PrintInfoForAdmin()); 
+                            School.studentList.ForEach(s => s.PrintInfoForAdmin());
                             break;
                         case 2:
                             School.teacherList.ForEach(t => t.PrintInfoForAdmin());
@@ -70,20 +64,20 @@ namespace SchoolSystem
                             School.courseList.ForEach(c => c.PrintInfoForAdmin());
                             break;
                         case 4:
-                            Message.Success("Logged out successfully ");
+                            Messages.Success("Logged out successfully ");
                             flag = false;
                             break;
                         default:
-                            Message.Error("Not a valid option");
+                            Messages.Error("Not a valid option");
                             break;
                     }
                 }
                 catch (Exception)
                 {
-                    Message.Error("Invalid Input");
+                    Messages.Error("Invalid Input");
                 }
             }
         }
-        public School School=> school;
+        public School School => school;
     }
 }

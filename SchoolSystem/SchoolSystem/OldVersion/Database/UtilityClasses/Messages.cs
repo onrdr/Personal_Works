@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace SchoolSystem.Utils
+namespace OldVersion
 {
-    internal class Message
+    internal class Messages
     {
         public static void Error(string error)
         {
@@ -15,10 +11,10 @@ namespace SchoolSystem.Utils
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static void Success(string error)
+        public static void Success(string success)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(error);
+            Console.WriteLine(success);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 

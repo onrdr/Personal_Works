@@ -4,41 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolSystem
+namespace OldVersion
 {
     internal class Course : IListedObjects<Course>
     {
-        private readonly string name;
-        private readonly string code;
+        public string Name { get; set; }
+        public string Code { get; set; }
         private Teacher teacher;
         private readonly List<Student> studentList = new();
         public Course(string name, string code, School school)
         {
-            this.name = name;
-            this.code = code;
+            Name = name;
+            Code = code;
             school.courseList.Add(this);
         }
         public List<Student> StudentList => studentList;
         public Teacher Teacher
         {
-            get => teacher; 
-            set => teacher = value; 
+            get => teacher;
+            set => teacher = value;
         }
         public void PrintExamResults()
         {
             teacher.PrintExamResults();
         }
-        public string GetName() => name;
-        
-        public string GetLastName() => code;
-         
-        public string GetFullName() => ($"{name} {code}");
-        
+        public string GetName() => Name;
+
+        public string GetLastName() => Code;
+
+        public string GetFullName() => $"{Name} {Code}";
+
         public void PrintInfoForAdmin()
-        { 
+        {
             Console.WriteLine($"{GetFullName()} : Instructor is {Teacher.GetFullName()}");
             PrintExamResults();
         }
-       
+
     }
 }

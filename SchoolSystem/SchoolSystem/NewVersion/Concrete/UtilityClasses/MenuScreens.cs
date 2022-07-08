@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolSystem.Utils
+﻿ 
+namespace NewVersion
 {
-    internal class Menu
+    public static class MenuScreens
     {
         public static void MainScreen()
         {
@@ -19,7 +14,7 @@ namespace SchoolSystem.Utils
             "3 - Admin Login Menu\n" +
             "===================================";
             Console.WriteLine(menu);
-        }
+        } 
         public static void PrincipalScreen()
         {
             string menu =

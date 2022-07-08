@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolSystem
+namespace OldVersion
 {
     internal interface IListedObjects<T>
     {
-        public string GetName();
-        public string GetLastName();
-        public string GetFullName();
+        string GetName();
+        string GetLastName();
+        string GetFullName();
         void PrintInfoForAdmin();
     }
 }

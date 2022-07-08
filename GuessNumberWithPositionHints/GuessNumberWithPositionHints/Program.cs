@@ -1,4 +1,7 @@
 ﻿
+
+
+
 Random random = new();
 List<int> randomNumberInArrayList = new(); 
 int randomNumber;

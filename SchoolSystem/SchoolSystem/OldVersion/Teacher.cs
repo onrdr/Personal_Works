@@ -1,12 +1,6 @@
-﻿using SchoolSystem.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolSystem
-{
+﻿
+namespace OldVersion 
+{     
     internal class Teacher : IListedObjects<Teacher>
     {
         private readonly string name;
@@ -37,17 +31,17 @@ namespace SchoolSystem
             Console.Write("Please enter your password : ");
             string password = Console.ReadLine();
 
-            Teacher teacher = (Teacher)school.FindandReturn(name, lastName, school.teacherList);
+            Teacher teacher = Finder.FindandReturn(name, lastName, school.teacherList);
 
             if (teacher == null)
-                Message.Error("Teacher not found.");
+                Messages.Error("Teacher not found.");
 
             else if (!teacher.password.Equals(password))
-                Message.Error("Wrong Password");
+                Messages.Error("Wrong Password");
 
             else
             {
-                Message.Success($"Login successful... WELCOME {teacher.GetFullName()} \n");
+                Messages.Success($"Login successful... WELCOME {teacher.GetFullName()} \n");
                 TeacherLoginMenu(teacher);
             }
         }
@@ -60,12 +54,12 @@ namespace SchoolSystem
             {
                 try
                 {
-                    Menu.TeacherScreen();
+                    MenuScreens.TeacherScreen();
                     choice = Convert.ToInt32(Console.ReadLine());
                     switch (choice)
                     {
                         case 0:
-                            Message.CloseSystem();
+                            Messages.CloseSystem();
                             Environment.Exit(0);
                             break;
                         case 1:
@@ -84,17 +78,17 @@ namespace SchoolSystem
                             teacher.ChangePassword();
                             break;
                         case 6:
-                            Message.Success("Logged out successfully ");
+                            Messages.Success("Logged out successfully ");
                             flag = false;
                             break;
                         default:
-                            Message.Error("Not a valid option");
+                            Messages.Error("Not a valid option");
                             break;
                     }
                 }
                 catch (Exception)
                 {
-                    Message.Error("Invalid Input!!!");
+                    Messages.Error("Invalid Input!!!");
                 }
             }
         }
@@ -103,14 +97,14 @@ namespace SchoolSystem
         {
             Student student = FindStudent();
             if (student == null)
-                Message.Error("Student not Found");
+                Messages.Error("Student not Found");
 
             else if (!course.StudentList.Contains(student))
-                Message.Error("Student not in your class");
+                Messages.Error("Student not in your class");
 
             else if (!(examGradesMap[student].Count == 0))
             {
-                Message.Error("You have entered exam results before. \nPlease modify results from menu");
+                Messages.Error("You have entered exam results before. \nPlease modify results from menu");
             }
             else
             {
@@ -119,7 +113,7 @@ namespace SchoolSystem
                 student.ExamGrades.Add(course, examGrades);
                 examGradesMap.Remove(student);
                 examGradesMap.Add(student, examGrades);
-                Message.Success("Added successfully...");
+                Messages.Success("Added successfully...");
             }
         }
 
@@ -136,19 +130,19 @@ namespace SchoolSystem
             }
             if (flag)
             {
-                Message.Error("No exam result had been entered before");
+                Messages.Error("No exam result had been entered before");
             }
             else
             {
                 Student student = FindStudent();
                 if (student == null)
-                    Message.Error("Student not found");
+                    Messages.Error("Student not found");
 
                 else if (!course.StudentList.Contains(student))
-                    Message.Error("Student not in your class");
+                    Messages.Error("Student not in your class");
 
                 else if (examGradesMap[student].Count == 0)
-                    Message.Error("You have not entered exam results for this student.");
+                    Messages.Error("You have not entered exam results for this student.");
 
                 else
                 {
@@ -157,7 +151,7 @@ namespace SchoolSystem
                     student.ExamGrades.Add(course, examGrades);
                     examGradesMap.Remove(student);
                     examGradesMap.Add(student, examGrades);
-                    Message.Success("Modified successfully...");
+                    Messages.Success("Modified successfully...");
                 }
             }
         }
@@ -179,7 +173,7 @@ namespace SchoolSystem
                     if (mid1 < 0 || mid1 > 100 ||
                         mid2 < 0 || mid2 > 100 ||
                         finalExam < 0 || finalExam > 100)
-                        Message.Error("One of the exam grade is out of range (0 - 100)");
+                        Messages.Error("One of the exam grade is out of range (0 - 100)");
 
                     else
                     {
@@ -191,7 +185,7 @@ namespace SchoolSystem
                 }
                 catch (Exception)
                 {
-                    Message.Error("Invalid Input!!!");
+                    Messages.Error("Invalid Input!!!");
                 }
             }
             return examGrades;
@@ -209,7 +203,7 @@ namespace SchoolSystem
                 }
             }
             if (flag)
-                Message.Error("No exam result had been entered before");
+                Messages.Error("No exam result had been entered before");
 
             else
             {
@@ -220,7 +214,7 @@ namespace SchoolSystem
 
                     if (examGradesMap[student].Count == 0)
                     {
-                        Message.Error("No exam result had been entered before\n");
+                        Messages.Error("No exam result had been entered before\n");
                     }
                     else
                     {
@@ -236,7 +230,7 @@ namespace SchoolSystem
         public void PrintStudentInformation()
         {
             if (course.StudentList.Count == 0)
-                Message.Error("No student registered to your course!!!");
+                Messages.Error("No student registered to your course!!!");
 
             else
             {
@@ -253,11 +247,11 @@ namespace SchoolSystem
             if (password.Equals(oldPassword))
             {
                 Console.Write("Please enter new password : ");
-                this.password = Console.ReadLine();
-                Message.Success("Password changed successfully");
+                password = Console.ReadLine();
+                Messages.Success("Password changed successfully");
             }
             else
-                Message.Error("Wrong Password");
+                Messages.Error("Wrong Password");
         }
 
         public static Student FindStudent()
@@ -267,7 +261,7 @@ namespace SchoolSystem
             Console.Write("Please enter student last name : ");
             string studentLastName = Console.ReadLine();
 
-            return (Student)school.FindandReturn(studentName, studentLastName, school.studentList);
+            return Finder.FindandReturn(studentName, studentLastName, school.studentList);
         }
 
         public Dictionary<Student, List<double>> ExamGradeMap => examGradesMap;
@@ -276,7 +270,7 @@ namespace SchoolSystem
 
         public string GetLastName() => lastName;
 
-        public string GetFullName() => ($"{name} {lastName}");
+        public string GetFullName() => $"{name} {lastName}";
         public void PrintInfoForAdmin()
         {
             Console.WriteLine($"{GetFullName()} : ");
