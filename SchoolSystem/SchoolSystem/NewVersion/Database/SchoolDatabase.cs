@@ -5,11 +5,20 @@ namespace NewVersion
     {
         public static School School1()
         {
+            Principal principal = new Principal()
+            {
+                Name = "p1",
+                LastName = "pp1",
+                Password = "1p"
+            };
+
             int counter = 0;
             School school = new()
             {
-                Name = "Anatolian High School",
+                Name = "Anatolian High School", 
+                Principal = principal
             };
+            principal.School = school;
 
             school.CourseList.Add(new Course { Name = "Math", LastName = "101", School = school });
             school.CourseList.Add(new Course { Name = "Phys", LastName = "101", School = school });
@@ -79,13 +88,7 @@ namespace NewVersion
             Course c5 = (Course)school.CourseList[counter - 1];
             c5.Teacher = (Teacher)school.TeacherList[counter - 1];
 
-            school.PrincipleList.Add(new Principal
-            {
-                Name = "p1",
-                LastName = "pp1",
-                Password = "1p",
-                School= school
-            });
+            school.PrincipleList.Add(principal);
 
             return school;
         }
